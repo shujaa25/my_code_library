@@ -4,10 +4,10 @@ import com.ishujaa.my_code_library.dsa.lists.SinglyLinkedList;
 
 import java.util.Arrays;
 //Implementation of hashing with chaining
-public class HashChain {
+public class ChainedHashTable {
     private SinglyLinkedList[] table;
     private int size;
-    public HashChain(int size){
+    public ChainedHashTable(int size){
         table = new SinglyLinkedList[size];
         this.size = size;
 

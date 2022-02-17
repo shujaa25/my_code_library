@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 //implementation of hashing with open addressing
 //it dynamically increases its size if needed
-public class HashOpenAddress {
+public class ClosedHashTable {
     private int size;
     private int[] table;
     private final int EMPTY = Integer.MIN_VALUE;
@@ -19,7 +19,7 @@ public class HashOpenAddress {
         return sieve.getLargestPrime();
     }
 
-    public HashOpenAddress(int size){
+    public ClosedHashTable(int size){
         //making sure that the size of table is a power of 2
         double p = Math.ceil(Math.log10(size)/Math.log10(2));
         this.size = (int)Math.pow(2, p);
