@@ -4,6 +4,7 @@ package com.ishujaa.my_code_library.dsa.hashtable;
 import com.ishujaa.my_code_library.famous_algorithms.math.PrimeSieve;
 
 import java.util.Arrays;
+
 //implementation of hashing with open addressing
 //it dynamically increases its size if needed
 public class HashOpenAddress {
@@ -36,12 +37,21 @@ public class HashOpenAddress {
     private int hash2(int value){
         return PRIME - (value % PRIME);
     }
+    //it returns the first free slot if available for a value else -1
     private int hash(int value, int i){
         if(i == size) return -1;
         int index = (hash1(value) + i * hash2(value)) % size;
         if(table[index] == EMPTY)
             return index;
         return hash(value, i+1);
+    }
+
+    //it returns the index for the first occurrence of the value or -1
+    private int findIndex(int value, int i){
+        if(i == size) return -1;
+        int index = (hash1(value) + i * hash2(value)) % size;
+        if(table[index] == value) return index;
+        return findIndex(value, i+1);
     }
 
     public int insert(int value){
@@ -68,13 +78,25 @@ public class HashOpenAddress {
         return -1;
     }
 
+    public void delete(int value){
+        int index = findIndex(value, 0);
+        if(index != -1)
+            table[index] = EMPTY;
+
+    }
+
+    public int exists(int value){
+        return findIndex(value, 0);
+    }
+
     public int getSize(){
         return size;
     }
 
     public void printTable(){
         for(int i=0;i<size;i++){
-            System.out.print(table[i]+" ");
+            if(table[i] != EMPTY) System.out.print(table[i]+" ");
+            else System.out.print("Φ ");
         }System.out.println();
     }
 }
