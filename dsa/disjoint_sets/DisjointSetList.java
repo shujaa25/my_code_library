@@ -1,18 +1,18 @@
 package com.ishujaa.my_code_library.dsa.disjoint_sets;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LinkedDSet {
+//implementation of disjoint sets using Linked List
+public class DisjointSetList{
     class Node{
         int value;
         Node representative, next;
     }
 
     private HashMap<Integer, Node> map;
-    public final int NULL = Integer.MIN_VALUE;
+    private int numberOfSets = 0;
     
-    public LinkedDSet(){
+    public DisjointSetList(){
         map = new HashMap<>();
     }
 
@@ -23,18 +23,25 @@ public class LinkedDSet {
         node.value = element;
 
         map.put(element, node);
+        numberOfSets++;
     }
 
-    public int findSet(int element){ // O(1)
+    private Node findSet(int element){ // O(1)
         if(map.containsKey(element)){
             Node node = map.get(element);
-            return node.representative.value;
+            return node.representative;
         }
-        return NULL;
+        return null;
+    }
+
+    public int findSetRepresentative(int element){
+        Node node = findSet(element);
+        if(node != null) return node.value;
+        return -1;
     }
 
     public void union(int element1, int element2){ // O(n)
-        if(findSet(element1) != NULL && findSet(element2) != NULL && findSet(element1) != findSet(element2)){
+        if(findSet(element1) != null && findSet(element2) != null && findSet(element1) != findSet(element2)){
             Node set1 = map.get(element1).representative;
             Node set2 = map.get(element2).representative;
             set2.representative = set1;
@@ -44,7 +51,11 @@ public class LinkedDSet {
                 temp = temp.next;
 
             temp.next = set2;
+            numberOfSets--;
         }
     }
 
+    public int getNumberOfSets(){
+        return numberOfSets;
+    }
 }
