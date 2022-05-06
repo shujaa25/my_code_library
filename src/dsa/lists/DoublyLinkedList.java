@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.dsa.lists;
+package com.ishujaa.my_code_library.src.dsa.lists;
 
 public class DoublyLinkedList extends SinglyLinkedList{
     private class Node extends SinglyLinkedList.Node{

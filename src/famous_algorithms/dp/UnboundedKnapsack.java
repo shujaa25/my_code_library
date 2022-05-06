@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.famous_algorithms.dp;
+package com.ishujaa.my_code_library.src.famous_algorithms.dp;
 
 public class UnboundedKnapsack {
     public int getMaximumValue(int[] weight, int[] value, int n, int capacity){

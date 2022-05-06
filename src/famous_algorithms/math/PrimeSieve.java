@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.famous_algorithms.math;
+package com.ishujaa.my_code_library.src.famous_algorithms.math;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.dsa.lists;
+package com.ishujaa.my_code_library.src.dsa.lists;
 
 public class Queue extends DoublyLinkedList{
     public void enqueue(int value){

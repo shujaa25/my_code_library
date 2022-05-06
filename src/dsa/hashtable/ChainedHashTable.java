@@ -1,6 +1,6 @@
-package com.ishujaa.my_code_library.dsa.hashtable;
+package com.ishujaa.my_code_library.src.dsa.hashtable;
 
-import com.ishujaa.my_code_library.dsa.lists.SinglyLinkedList;
+import com.ishujaa.my_code_library.src.dsa.lists.SinglyLinkedList;
 
 import java.util.Arrays;
 //Implementation of hashing with chaining

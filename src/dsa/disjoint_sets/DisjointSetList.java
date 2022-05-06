@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.dsa.disjoint_sets;
+package com.ishujaa.my_code_library.src.dsa.disjoint_sets;
 
 import java.util.HashMap;
 

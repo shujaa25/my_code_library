@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.dsa.sorting;
+package com.ishujaa.my_code_library.src.dsa.sorting;
 
 import java.util.Arrays;
 

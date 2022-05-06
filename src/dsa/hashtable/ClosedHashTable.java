@@ -1,7 +1,7 @@
-package com.ishujaa.my_code_library.dsa.hashtable;
+package com.ishujaa.my_code_library.src.dsa.hashtable;
 
 
-import com.ishujaa.my_code_library.famous_algorithms.math.PrimeSieve;
+import com.ishujaa.my_code_library.src.famous_algorithms.math.PrimeSieve;
 
 import java.util.Arrays;
 
