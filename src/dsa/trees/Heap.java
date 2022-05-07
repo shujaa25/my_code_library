@@ -2,12 +2,12 @@ package com.ishujaa.my_code_library.src.dsa.trees;
 
 public class Heap {
 
-    private final boolean isMax;
-    private HeapObject[] arr; //0th index is ignored
+    private final boolean maxHeap;
+    private HeapNode[] arr; //0th index is ignored
     private int heapSize;
 
-    public Heap(HeapObject[] arr, boolean isMax){
-        this.isMax = isMax;
+    public Heap(HeapNode[] arr, boolean maxHeap){
+        this.maxHeap = maxHeap;
         this.arr = arr;
         this.heapSize = arr.length-1;
 
@@ -16,7 +16,7 @@ public class Heap {
 
     private void heapify(int i){ //O(log n)
         int leftIndex = i * 2; int rightIndex = leftIndex+1; int targetIndex = i;
-        if(isMax){
+        if(maxHeap){
             int largestIndex = i;
             if(leftIndex <= heapSize && arr[leftIndex].value > arr[i].value)
                 largestIndex = leftIndex;
@@ -38,7 +38,7 @@ public class Heap {
         }
 
         if(targetIndex != i){
-            HeapObject iValue = arr[i];
+            HeapNode iValue = arr[i];
             arr[i] = arr[targetIndex];
             arr[targetIndex] = iValue;
             heapify(targetIndex);
@@ -52,10 +52,10 @@ public class Heap {
             heapify(i);
     }
 
-    public HeapObject extractMax(){
-        HeapObject maxVal = new HeapObject();
+    public HeapNode extractMax(){
+        HeapNode maxVal = new HeapNode();
         maxVal.value = Integer.MIN_VALUE;
-        if(isMax){ //O(log n)
+        if(maxHeap){ //O(log n)
             maxVal = arr[1];
             arr[1] = arr[heapSize];
             heapSize--;
@@ -77,10 +77,10 @@ public class Heap {
         return maxVal;
     }
 
-    public HeapObject extractMin(){
-        HeapObject minVal = new HeapObject();
+    public HeapNode extractMin(){
+        HeapNode minVal = new HeapNode();
         minVal.value = Integer.MAX_VALUE;
-        if(!isMax){
+        if(!maxHeap){
             minVal = arr[1];
             arr[1] = arr[heapSize];
             heapSize--;
@@ -102,35 +102,39 @@ public class Heap {
         return minVal;
     }
 
-    private void increaseKey(int index, long key){
+    private void increaseKey(int index, long key){// for max heap only
         arr[index].value = key;
 
-        while(index > 1 && arr[index/2].value < arr[index].value){
-            long temp = arr[index/2].value;
-            arr[index/2].value = arr[index].value;
-            arr[index].value = temp;
+        if(maxHeap){
+            while(index > 1 && arr[index/2].value < arr[index].value){
+                HeapNode temp = arr[index/2];
+                arr[index/2] = arr[index];
+                arr[index] = temp;
 
-            index = index/2;
+                index = index/2;
+            }
         }
     }
 
-    private void decreaseKey(int index, long key){
+    public void decreaseKey(int index, long key){// for min heap only
         arr[index].value = key;
 
-        while(index > 1 && arr[index/2].value > arr[index].value){
-            long temp = arr[index/2].value;
-            arr[index/2].value = arr[index].value;
-            arr[index].value = temp;
+        if(!maxHeap){
+            while(index > 1 && arr[index/2].value > arr[index].value){
+                HeapNode temp = arr[index/2];
+                arr[index/2] = arr[index];
+                arr[index] = temp;
 
-            index = index/2;
+                index = index/2;
+            }
         }
     }
 
 
-    public boolean insert(HeapObject node){
+    public boolean insert(HeapNode node){
         if(heapSize < arr.length-1){
             arr[++heapSize] = node;
-            if(!isMax){
+            if(!maxHeap){
                 decreaseKey(heapSize, node.value);
             }else{
                 increaseKey(heapSize, node.value);
@@ -144,17 +148,9 @@ public class Heap {
         return heapSize;
     }
 
-    /*private void sort(boolean asc){// O(n log n)
-        if((isMax && asc) || (!isMax && !asc)){
-            for(int i = heapSize; i>0; i--){
-                long root = arr[1];
-                arr[1] = arr[i];
-                arr[i] = root;
-                heapSize--;
-                heapify(1);
-            }
-        }
-
-        //heap property is violated by the arr
-    }*/
+    public void printHeap(){
+        for(int i=1; i<=heapSize; i++){
+            System.out.print(arr[i].value+" ");
+        }System.out.println();
+    }
 }

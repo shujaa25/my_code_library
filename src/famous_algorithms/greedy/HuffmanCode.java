@@ -1,7 +1,7 @@
 package com.ishujaa.my_code_library.src.famous_algorithms.greedy;
 
 import com.ishujaa.my_code_library.src.dsa.trees.Heap;
-import com.ishujaa.my_code_library.src.dsa.trees.HeapObject;
+import com.ishujaa.my_code_library.src.dsa.trees.HeapNode;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ public class HuffmanCode {
 
     private HashMap<Character, String> codes;
 
-    private class AlphaFrqPair extends HeapObject {
+    private class AlphaFrqPair extends HeapNode {
         char name;
         AlphaFrqPair left, right;
         String code;

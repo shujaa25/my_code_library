@@ -1,4 +1,4 @@
-package com.ishujaa.my_code_library.test;
+package com.ishujaa.my_code_library.tests;
 
 import com.ishujaa.my_code_library.src.famous_algorithms.dp.BoundedKnapsack;
 import junit.framework.TestCase;
