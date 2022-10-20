@@ -25,6 +25,12 @@ public class ChainedHashTable {
         return index;
     }
 
+    public int insertPreSorted(int value){// O(n)
+        int index = hash(value);
+        table[index].addPreSorted(value);
+        return index;
+    }
+
     public int exists(int value) { // O(n)
         if(table[hash(value)].exists(value)) return hash(value);
         else return -1;

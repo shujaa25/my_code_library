@@ -8,11 +8,30 @@ public class SinglyLinkedList {
     private int size;
     protected Node head;
 
-    public void addNodeHead(int value){
+    public void addNodeHead(int value){ // O(1)
         Node newNode = new Node();
         newNode.value = value;
         newNode.next = head;
         head = newNode;
+
+        increaseSize(1);
+    }
+
+    public void addPreSorted(int value){ // O(n)
+        Node newNode = new Node();
+        newNode.value = value;
+
+        //assuming the list is presorted
+        Node temp = head; Node prev = null;
+        while(temp != null && temp.value < value){
+            prev = temp;
+            temp = temp.next;
+        }
+
+        newNode.next = temp;
+        if(prev != null)
+            prev.next = newNode;
+        else head = newNode;
 
         increaseSize(1);
     }
