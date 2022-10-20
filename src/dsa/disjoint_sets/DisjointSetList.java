@@ -46,6 +46,9 @@ public class DisjointSetList{
             Node set2 = map.get(element2).representative;
             set2.representative = set1;
 
+            //all nodes of set 2 must have same representative
+
+
             Node temp = set1;
             while(temp.next != null)
                 temp = temp.next;

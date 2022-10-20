@@ -1,11 +1,15 @@
 package com.ishujaa.my_code_library.src.dsa.graph;
 
+import java.util.ArrayList;
+
 public class MatrixGraph {
     private int[][] graph;
     private final int n;
+    private ArrayList<EdgeNode> edgeNodes;
     public MatrixGraph(int n){
         this.n = n;
         graph = new int[n+1][n+1];
+        edgeNodes = new ArrayList<>();
 
         //filling infinity
         for(int i=1; i<=n; i++){
@@ -19,6 +23,13 @@ public class MatrixGraph {
     public void addEdge(int source, int destination, int weight, boolean directed){
         graph[source][destination] = weight;
         if(!directed) graph[destination][source] = weight;
+
+        EdgeNode edgeNode = new EdgeNode();
+        edgeNode.x = source;
+        edgeNode.y = destination;
+        edgeNode.weight = weight;
+        edgeNode.directed = false;
+        edgeNodes.add(edgeNode);
     }
 
     public int[][] getGraphMatrix(){
@@ -27,6 +38,10 @@ public class MatrixGraph {
 
     public int getN() {
         return n;
+    }
+
+    public ArrayList<EdgeNode> getEdgeNodes() {
+        return edgeNodes;
     }
 
     public void printMatrix(){
