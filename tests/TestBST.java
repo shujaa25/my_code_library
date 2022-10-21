@@ -20,11 +20,17 @@ public class TestBST extends TestCase {
         bst.insert(1);
         bst.insert(2);
 
+        assertTrue(bst.search(4));
+        assertTrue(bst.search(2));
+        assertFalse(bst.search(0));
+
         bst.delete(4);
+        assertFalse(bst.search(4));
 
         bst.insert(10);
         bst.insert(8);
         bst.delete(5);
+        assertFalse(bst.search(5));
 
         assertEquals(bst.getInorder(), "1 2 3 8 10 ");
         assertEquals(bst.getPreOrder(), "8 3 1 2 10 ");
