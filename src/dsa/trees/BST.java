@@ -9,7 +9,7 @@ public class BST {
     private BSTNode root;
     private int size;
 
-    private BSTNode findLoc(int n, BSTNode node){
+    private BSTNode findLoc(int n, BSTNode node){//finds correct position for insertion
         if(node != null){
             if(n <= node.value){
                 if(node.left == null)
@@ -40,21 +40,42 @@ public class BST {
         size++;
     }
 
+    private boolean search(int n, BSTNode node){
+        if(node != null){
+            if(n == node.value) return true;
+            if(n < node.value){
+                if(node.left != null)
+                    return search(n, node.left);
+            }else{
+                if(node.right != null)
+                    return search(n, node.right);
+            }
+        }
+        return false;
+    }
+
+    public boolean search(int key){
+        return search(key, root);
+    }
+
     private boolean del(int key, BSTNode parent, BSTNode node){
         if(node.value == key){
-            if(node.left == null && node.right == null)
+            if(node.left == null && node.right == null){
                 if(parent.right == node)
                     parent.right = null;
                 else parent.left = null;
-            else if(node.left != null && node.right == null)
+            }
+            else if(node.left != null && node.right == null){
                 if(parent.right == node)
                     parent.right = node.left;
                 else parent.left = node.left;
-            else if(node.left == null)
+            }
+            else if(node.left == null){
                 if(parent.right == node)
                     parent.right = node.right;
                 else parent.left = node.right;
-            else { //none null
+            }
+            else{ //none is null
                 //replace with the smallest node in right subtree
                 BSTNode temp = node.right;
                 parent = node;
@@ -71,11 +92,11 @@ public class BST {
             }
             return true;
         }else if(key < node.value && node.left != null)
-            del(key, node, node.left);
+            return del(key, node, node.left);
         else if(key > node.value && node.right != null)
-            del(key, node, node.right);
+            return del(key, node, node.right);
 
-        return false;
+        return false;//not found
     }
 
     public void delete(int key){
