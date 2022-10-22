@@ -1,13 +1,9 @@
 package com.ishujaa.my_code_library.src.dsa.trees;
 
 public class BST {
-    class BSTNode{
-        int value;
-        BSTNode left, right;
-    }
-
     private BSTNode root;
     private int size;
+    public final int NULL = Integer.MIN_VALUE;
 
     private BSTNode findLoc(int n, BSTNode node){//finds correct position for insertion
         if(node != null){
@@ -22,22 +18,24 @@ public class BST {
             }
         }
         return null;
-    }
+    }//O(h)
 
     public void insert(int n){
-        BSTNode node = new BSTNode();
-        node.value = n;
-        node.left = node.right = null;
+        if(n!=NULL){
+            BSTNode node = new BSTNode();
+            node.value = n;
+            node.left = node.right = null;
 
-        if(root == null) root = node;
-        else{
-            BSTNode loc = findLoc(n, root);
-            if(loc != null){
-                if(n <= loc.value) loc.left = node;
-                else loc.right = node;
+            if(root == null) root = node;
+            else{
+                BSTNode loc = findLoc(n, root);
+                if(loc != null){
+                    if(n <= loc.value) loc.left = node;
+                    else loc.right = node;
+                }
             }
+            size++;
         }
-        size++;
     }
 
     private boolean search(int n, BSTNode node){
@@ -52,13 +50,13 @@ public class BST {
             }
         }
         return false;
-    }
+    }//O(h)
 
     public boolean search(int key){
         return search(key, root);
     }
 
-    private boolean del(int key, BSTNode parent, BSTNode node){
+    private boolean delete(int key, BSTNode parent, BSTNode node){
         if(node.value == key){
             if(node.left == null && node.right == null){
                 if(parent.right == node)
@@ -92,12 +90,12 @@ public class BST {
             }
             return true;
         }else if(key < node.value && node.left != null)
-            return del(key, node, node.left);
+            return delete(key, node, node.left);
         else if(key > node.value && node.right != null)
-            return del(key, node, node.right);
+            return delete(key, node, node.right);
 
         return false;//not found
-    }
+    }//O(h)
 
     public void delete(int key){
         if(size >= 1){
@@ -108,9 +106,67 @@ public class BST {
                 return;
             }
 
-            if(del(key, root, root))
+            if(delete(key, root, root))
                 size--;
         }
+    }
+
+    private int floor(int key, BSTNode prevSmallest, BSTNode node){
+        if(node.value == key){
+            return key;
+        }else{
+            if(key < node.value){
+                if(node.left != null)
+                    return floor(key, prevSmallest, node.left);
+                else
+                    if(prevSmallest.value < key) return prevSmallest.value;
+                    else return NULL;
+            }else{
+                if(node.right == null)
+                    return node.value;
+                else
+                    return floor(key, node, node.right);
+            }
+        }
+    }
+
+    public int floor(int key){
+        if(size == 1){
+            if(root.value <= key) return root.value;
+        }else if(size > 1){
+            return floor(key, root, root);
+        }
+
+        return NULL;
+    }
+
+    private int ceil(int key, BSTNode prevLargest, BSTNode node){
+        if(node.value == key){
+            return key;
+        }else{
+            if(key > node.value){
+                if (node.right != null)
+                    return ceil(key, prevLargest, node.right);
+                else
+                    if(prevLargest.value > key) return prevLargest.value;
+                    else return NULL;
+            }else{
+                if (node.left == null)
+                    return node.value;
+                else
+                    return ceil(key, node, node.left);
+            }
+        }
+    }
+
+    public int ceil(int key){
+        if(size == 1){
+            if(root.value >= key) return root.value;
+        }else if(size > 1){
+            return ceil(key, root, root);
+        }
+
+        return NULL;
     }
 
     private void inorder(StringBuilder sb, BSTNode root){
