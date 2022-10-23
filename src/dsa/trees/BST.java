@@ -1,11 +1,42 @@
 package com.ishujaa.my_code_library.src.dsa.trees;
 
-public class BST {
-    private BSTNode root;
+public class BST{
+    private BinTreeNode root;
     private int size;
     public final int NULL = Integer.MIN_VALUE;
 
-    private BSTNode findLoc(int n, BSTNode node){//finds correct position for insertion
+    public BST(){}
+
+    public BST(String s){
+        String[] keys = s.split(" ");
+        for(String key: keys){
+            int k = Integer.parseInt(key);
+            insert(k);
+        }
+    }
+
+    /*public boolean verifyBST(BinTreeNode parent, BinTreeNode node){//incorrect
+        if(node != null){
+            if(node.left != null){
+                if(node.left.value > node.value && parent.value > node.value)
+                    return false;
+            }
+
+            if(node.right != null){
+                if(node.right.value <= node.value && parent.value <= node.value)
+                    return false;
+            }
+
+            return verifyBST(node, node.left) && verifyBST(node, node.right);
+        }
+
+        return true;
+    }*/
+
+    //10 5 18 2 9 15 19 N 4 8 N 1
+    //3 1 5 N 2 4 8 N N N N 7 N 6
+
+    private BinTreeNode findLoc(int n, BinTreeNode node){//finds correct position for insertion
         if(node != null){
             if(n <= node.value){
                 if(node.left == null)
@@ -22,13 +53,13 @@ public class BST {
 
     public void insert(int n){
         if(n!=NULL){
-            BSTNode node = new BSTNode();
+            BinTreeNode node = new BinTreeNode();
             node.value = n;
             node.left = node.right = null;
 
             if(root == null) root = node;
             else{
-                BSTNode loc = findLoc(n, root);
+                BinTreeNode loc = findLoc(n, root);
                 if(loc != null){
                     if(n <= loc.value) loc.left = node;
                     else loc.right = node;
@@ -38,7 +69,7 @@ public class BST {
         }
     }
 
-    private boolean search(int n, BSTNode node){
+    private boolean search(int n, BinTreeNode node){
         if(node != null){
             if(n == node.value) return true;
             if(n < node.value){
@@ -56,7 +87,7 @@ public class BST {
         return search(key, root);
     }
 
-    private boolean delete(int key, BSTNode parent, BSTNode node){
+    private boolean delete(int key, BinTreeNode parent, BinTreeNode node){
         if(node.value == key){
             if(node.left == null && node.right == null){
                 if(parent.right == node)
@@ -75,7 +106,7 @@ public class BST {
             }
             else{ //none is null
                 //replace with the smallest node in right subtree
-                BSTNode temp = node.right;
+                BinTreeNode temp = node.right;
                 parent = node;
                 while(temp.left != null){
                     parent = temp;
@@ -111,7 +142,7 @@ public class BST {
         }
     }
 
-    private int floor(int key, BSTNode prevSmallest, BSTNode node){
+    private int floor(int key, BinTreeNode prevSmallest, BinTreeNode node){
         if(node.value == key){
             return key;
         }else{
@@ -140,7 +171,7 @@ public class BST {
         return NULL;
     }
 
-    private int ceil(int key, BSTNode prevLargest, BSTNode node){
+    private int ceil(int key, BinTreeNode prevLargest, BinTreeNode node){
         if(node.value == key){
             return key;
         }else{
@@ -169,7 +200,7 @@ public class BST {
         return NULL;
     }
 
-    private void inorder(StringBuilder sb, BSTNode root){
+    private void inorder(StringBuilder sb, BinTreeNode root){
         if(root != null){
             if(root.left != null)
                 inorder(sb, root.left);
@@ -185,7 +216,7 @@ public class BST {
         return sb.toString();
     }
 
-    public void preorder(StringBuilder sb, BSTNode root){
+    public void preorder(StringBuilder sb, BinTreeNode root){
         if(root != null){
             sb.append(root.value).append(" ");
             if(root.left != null)
@@ -201,7 +232,7 @@ public class BST {
         return sb.toString();
     }
 
-    public void postorder(StringBuilder sb, BSTNode root){
+    public void postorder(StringBuilder sb, BinTreeNode root){
         if(root != null){
             if(root.left != null)
                 postorder(sb, root.left);
@@ -217,7 +248,24 @@ public class BST {
         return sb.toString();
     }
 
+    private void levelOrder(StringBuilder sb, BinTreeNode root){
+        if(root != null){
+            BinTreeNode temp = root;
+
+        }
+    }
+
+    public String getLevelOrder(){
+        StringBuilder sb = new StringBuilder();
+        levelOrder(sb, root);
+        return sb.toString();
+    }
+
     public int getSize() {
         return size;
+    }
+
+    public BinTreeNode getRoot() {
+        return root;
     }
 }
